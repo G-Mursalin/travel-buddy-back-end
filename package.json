@@ -2,7 +2,7 @@
     "name": "express-typescript-mongoose-starter",
     "version": "1.0.0",
     "description": "Kickstart your TypeScript web projects effortlessly with the TypeScript Express Mongoose starter with ZOD validations and all kinds of error handlers",
-    "main": "./server.ts",
+    "main": "dist/server.js",
     "scripts": {
         "build": "tsc",
         "start": "node ./dist/server.js",
