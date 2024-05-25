@@ -9,7 +9,7 @@ const registerUser = catchAsync(async (req, res) => {
     sendSuccessResponse(res, {
         statusCode: StatusCodes.OK,
         message: 'User is sign up successfully',
-        data: accessToken,
+        data: { accessToken },
     });
 });
 
