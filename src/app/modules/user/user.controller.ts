@@ -28,6 +28,20 @@ const changeStatus = catchAsync(async (req, res) => {
     });
 });
 
+// Change User Status
+const changeRole = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const { role } = req.body;
+
+    const result = await userServices.changeRole(id, role);
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'Role is updated successfully',
+        data: result,
+    });
+});
+
 // Update Profile
 const updateMyProfile = catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -41,8 +55,21 @@ const updateMyProfile = catchAsync(async (req, res) => {
     });
 });
 
+// Get All Users
+const getAllUsers = catchAsync(async (req, res) => {
+    const result = await userServices.getAllUsers();
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'Users retrieved successfully',
+        data: result,
+    });
+});
+
 export const userControllers = {
     getMe,
     changeStatus,
+    changeRole,
     updateMyProfile,
+    getAllUsers,
 };

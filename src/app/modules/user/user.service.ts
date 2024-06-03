@@ -49,6 +49,28 @@ const changeStatus = async (id: string, status: string) => {
             runValidators: true,
         },
     ).select({ _id: 1, userName: 1, email: 1, status: 1, role: 1 });
+
+    return result;
+};
+
+// Change User Role
+const changeRole = async (id: string, role: string) => {
+    // Check if the user exists
+    const isUserExists = await User.findById(id);
+
+    if (!isUserExists) {
+        throw new AppError(StatusCodes.NOT_FOUND, 'User Not Found');
+    }
+
+    const result = await User.findByIdAndUpdate(
+        id,
+        { role },
+        {
+            new: true,
+            runValidators: true,
+        },
+    ).select({ _id: 1, userName: 1, email: 1, status: 1, role: 1 });
+
     return result;
 };
 
@@ -68,8 +90,23 @@ const updateMyProfile = async (id: string, payload: Partial<TUser>) => {
     return result;
 };
 
+// Get All Users
+const getAllUsers = async () => {
+    const result = await User.find().select({
+        _id: 1,
+        userName: 1,
+        email: 1,
+        status: 1,
+        role: 1,
+    });
+
+    return result;
+};
+
 export const userServices = {
     getMe,
     changeStatus,
+    changeRole,
     updateMyProfile,
+    getAllUsers,
 };

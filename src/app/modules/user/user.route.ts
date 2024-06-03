@@ -14,11 +14,18 @@ router
         auth(USER_ROLE.user, USER_ROLE.admin),
         userControllers.getMe,
     )
+    .get('/', auth(USER_ROLE.admin), userControllers.getAllUsers)
     .post(
         '/change-status/:id',
-        auth(USER_ROLE.user, USER_ROLE.admin),
+        auth(USER_ROLE.admin),
         validateRequest(userValidators.changeStatusValidationSchema),
         userControllers.changeStatus,
+    )
+    .post(
+        '/change-role/:id',
+        auth(USER_ROLE.admin),
+        validateRequest(userValidators.changeRoleValidationSchema),
+        userControllers.changeRole,
     )
     .patch(
         '/:id',

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UserStatus } from './user.constant';
+import { USER_ROLE, UserStatus } from './user.constant';
 
 const createUserValidationSchema = z.object({
     body: z.object({
@@ -34,6 +34,15 @@ const changeStatusValidationSchema = z.object({
     }),
 });
 
+const changeRoleValidationSchema = z.object({
+    body: z.object({
+        role: z.enum([...Object.values(USER_ROLE)] as [string, ...string[]], {
+            required_error: 'Role is required',
+            invalid_type_error: 'Role must be one of: admin or user',
+        }),
+    }),
+});
+
 const updateProfileValidationSchema = z.object({
     body: z.object({
         userName: z
@@ -49,5 +58,6 @@ const updateProfileValidationSchema = z.object({
 export const userValidators = {
     createUserValidationSchema,
     changeStatusValidationSchema,
+    changeRoleValidationSchema,
     updateProfileValidationSchema,
 };
