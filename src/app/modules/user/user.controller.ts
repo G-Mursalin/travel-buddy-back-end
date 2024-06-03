@@ -3,6 +3,7 @@ import catchAsync from '../../utils/catchAsync';
 import { StatusCodes } from 'http-status-codes';
 import sendSuccessResponse from '../../utils/sendSuccessResponse';
 
+// Get Me
 const getMe = catchAsync(async (req, res) => {
     const result = await userServices.getMe(req.user);
 
@@ -13,6 +14,7 @@ const getMe = catchAsync(async (req, res) => {
     });
 });
 
+// Change User Status
 const changeStatus = catchAsync(async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
@@ -26,7 +28,21 @@ const changeStatus = catchAsync(async (req, res) => {
     });
 });
 
+// Update Profile
+const updateMyProfile = catchAsync(async (req, res) => {
+    const { id } = req.params;
+
+    const result = await userServices.updateMyProfile(id, req.body);
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'User info. updated successfully',
+        data: result,
+    });
+});
+
 export const userControllers = {
     getMe,
     changeStatus,
+    updateMyProfile,
 };

@@ -34,7 +34,20 @@ const changeStatusValidationSchema = z.object({
     }),
 });
 
+const updateProfileValidationSchema = z.object({
+    body: z.object({
+        userName: z
+            .string({
+                required_error: 'User name is required',
+                invalid_type_error: 'User name must be a string',
+            })
+            .min(1, 'User name is required')
+            .optional(),
+    }),
+});
+
 export const userValidators = {
     createUserValidationSchema,
     changeStatusValidationSchema,
+    updateProfileValidationSchema,
 };

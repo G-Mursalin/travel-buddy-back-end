@@ -19,6 +19,12 @@ router
         auth(USER_ROLE.user, USER_ROLE.admin),
         validateRequest(userValidators.changeStatusValidationSchema),
         userControllers.changeStatus,
+    )
+    .patch(
+        '/:id',
+        auth(USER_ROLE.user, USER_ROLE.admin),
+        validateRequest(userValidators.updateProfileValidationSchema),
+        userControllers.updateMyProfile,
     );
 
 export const userRoutes = router;

@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import { JwtPayload } from 'jsonwebtoken';
 import AppError from '../../classes/errorClasses/AppError';
 import { User } from './user.model';
+import { TUser } from './user.interface';
 
 // Get me
 const getMe = async (payload: JwtPayload) => {
@@ -51,7 +52,24 @@ const changeStatus = async (id: string, status: string) => {
     return result;
 };
 
+// Update My Profile
+const updateMyProfile = async (id: string, payload: Partial<TUser>) => {
+    const { userName } = payload;
+
+    const result = await User.findByIdAndUpdate(
+        id,
+        { userName },
+        {
+            new: true,
+            runValidators: true,
+        },
+    ).select({ _id: 1, userName: 1, email: 1, status: 1, role: 1 });
+
+    return result;
+};
+
 export const userServices = {
     getMe,
     changeStatus,
+    updateMyProfile,
 };
