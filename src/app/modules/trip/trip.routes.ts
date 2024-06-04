@@ -14,6 +14,7 @@ router
         validateRequest(tripValidations.createTripSchema),
         tripControllers.createTrip,
     )
-    .get('/', tripControllers.getAllTrips);
+    .get('/', tripControllers.getAllTrips)
+    .get('/:id', tripControllers.getTrip);
 
 export const tripRoutes = router;

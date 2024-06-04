@@ -17,11 +17,25 @@ const createTrip = catchAsync(async (req: Request, res: Response) => {
 
 // Get All Trips
 const getAllTrips = catchAsync(async (req: Request, res: Response) => {
-    const result = await tripServices.getAllTrips();
+    const { result, meta } = await tripServices.getAllTrips(req.query);
 
     sendSuccessResponse(res, {
         statusCode: StatusCodes.OK,
         message: 'Trips retrieved successfully',
+        meta: meta,
+        data: result,
+    });
+});
+
+// Get Trip by ID
+const getTrip = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result = await tripServices.getTrip(id);
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'Trip retrieved successfully',
         data: result,
     });
 });
@@ -29,4 +43,5 @@ const getAllTrips = catchAsync(async (req: Request, res: Response) => {
 export const tripControllers = {
     createTrip,
     getAllTrips,
+    getTrip,
 };
