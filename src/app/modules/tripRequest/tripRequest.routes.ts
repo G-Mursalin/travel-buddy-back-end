@@ -7,11 +7,13 @@ import { tripRequestValidations } from './tripRequest.validation';
 
 const router = Router();
 
-router.post(
-    '/',
-    auth(USER_ROLE.user),
-    validateRequest(tripRequestValidations.createTripRequestSchema),
-    tripRequestControllers.createTripRequest,
-);
+router
+    .post(
+        '/',
+        auth(USER_ROLE.user),
+        validateRequest(tripRequestValidations.createTripRequestSchema),
+        tripRequestControllers.createTripRequest,
+    )
+    .get('/', auth(USER_ROLE.user), tripRequestControllers.getRequestedTrips);
 
 export const tripRequestRoutes = router;

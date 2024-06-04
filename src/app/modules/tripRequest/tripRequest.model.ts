@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { ITripRequest } from './tripRequest.interface';
+import { TripStatus } from './tripRequest.constant';
 
 const tripRequestSchema = new Schema<ITripRequest>(
     {
@@ -10,6 +11,11 @@ const tripRequestSchema = new Schema<ITripRequest>(
         userId: {
             type: Schema.Types.ObjectId,
             ref: 'User',
+        },
+        status: {
+            type: String,
+            enum: { values: TripStatus },
+            default: 'pending',
         },
     },
     {

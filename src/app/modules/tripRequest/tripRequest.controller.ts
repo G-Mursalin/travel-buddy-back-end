@@ -18,6 +18,18 @@ const createTripRequest = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+// Get All Trips that a user requested
+const getRequestedTrips = catchAsync(async (req: Request, res: Response) => {
+    const result = await tripRequestServices.getRequestedTrips(req.user);
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.CREATED,
+        message: 'Trip retrieved successfully',
+        data: result,
+    });
+});
+
 export const tripRequestControllers = {
     createTripRequest,
+    getRequestedTrips,
 };

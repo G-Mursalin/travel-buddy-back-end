@@ -9,6 +9,16 @@ const createTripRequest = async (user: JwtPayload, payload: ITripRequest) => {
     return newRequestTrip;
 };
 
+// Get All Trips that a user requested
+const getRequestedTrips = async (user: JwtPayload) => {
+    const result = await TripRequest.find({ userId: user.id })
+        .populate('tripId')
+        .sort('-createdAt');
+
+    return result;
+};
+
 export const tripRequestServices = {
     createTripRequest,
+    getRequestedTrips,
 };
