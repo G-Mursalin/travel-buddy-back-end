@@ -25,6 +25,7 @@ const getAllTrips = async (query: Record<string, unknown>) => {
 
     return { result, meta };
 };
+
 // Get Trip By ID
 const getTrip = async (id: string) => {
     const result = await Trip.findById(id);
