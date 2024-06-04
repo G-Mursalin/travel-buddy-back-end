@@ -40,8 +40,47 @@ const getTrip = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+// Get Login User Trips
+const getLoginUserTrips = catchAsync(async (req: Request, res: Response) => {
+    const result = await tripServices.getLoginUserTrips(req.user);
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'User posts retrieved successfully',
+        data: result,
+    });
+});
+
+// Delete A Trip
+const deleteTrip = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result = await tripServices.deleteTrip(id);
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'Posts deleted successfully',
+        data: result,
+    });
+});
+
+// Update Trip
+const updateTrip = catchAsync(async (req, res) => {
+    const { id } = req.params;
+
+    const result = await tripServices.updateTrip(id, req.body);
+
+    sendSuccessResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'Post updated successfully',
+        data: result,
+    });
+});
 export const tripControllers = {
     createTrip,
     getAllTrips,
     getTrip,
+    getLoginUserTrips,
+    deleteTrip,
+    updateTrip,
 };

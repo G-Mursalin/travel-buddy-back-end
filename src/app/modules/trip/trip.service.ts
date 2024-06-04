@@ -33,8 +33,39 @@ const getTrip = async (id: string) => {
     return result;
 };
 
+// Get Login User Trips
+const getLoginUserTrips = async (user: JwtPayload) => {
+    const result = await Trip.find({ userId: user.id }).sort('-createdAt');
+
+    return result;
+};
+
+// Delete A Trip
+const deleteTrip = async (id: string) => {
+    const result = await Trip.findByIdAndDelete(id);
+
+    return result;
+};
+
+// Update Trip
+const updateTrip = async (id: string, payload: Partial<TTrip>) => {
+    const result = await Trip.findByIdAndUpdate(
+        id,
+        { ...payload },
+        {
+            new: true,
+            runValidators: true,
+        },
+    );
+
+    return result;
+};
+
 export const tripServices = {
     createTrip,
     getAllTrips,
     getTrip,
+    getLoginUserTrips,
+    deleteTrip,
+    updateTrip,
 };
