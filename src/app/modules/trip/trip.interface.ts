@@ -7,6 +7,6 @@ export interface TTrip {
     endDate: string;
     budget: number;
     travelType: 'adventure' | 'leisure' | 'business';
-    photo: string;
+    photo: string[];
     userId: Types.ObjectId;
 }

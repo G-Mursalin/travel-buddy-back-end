@@ -18,14 +18,22 @@ const tripSchema = new Schema<TTrip>(
             enum: ['adventure', 'leisure', 'business'],
         },
         photo: {
-            type: String,
-            required: true,
+            type: [String],
             validate: {
-                validator: function (v: string) {
-                    return /^https?:\/\/[^\s$.?#].[^\s]*$/.test(v);
+                validator: function (array) {
+                    return (
+                        Array.isArray(array) &&
+                        array.length > 0 &&
+                        array.every((url: string) => {
+                            const urlRegex =
+                                /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+                            return urlRegex.test(url);
+                        })
+                    );
                 },
-                message: (props) => `${props.value} is not a valid URL`,
+                message: 'At least one valid photo URL is required',
             },
+            required: [true, 'At least one photo URL is required'],
         },
         userId: {
             type: Schema.Types.ObjectId,

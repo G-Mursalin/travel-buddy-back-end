@@ -37,7 +37,9 @@ const createTripSchema = z.object({
             invalid_type_error:
                 'Travel Types must be one of: adventure or leisure or business',
         }),
-        photo: z.string().url({ message: 'Invalid photo URL' }),
+        photo: z
+            .array(z.string().url({ message: 'Invalid photo URL' }))
+            .min(1, { message: 'At least one photo URL is required' }),
     }),
 });
 
@@ -79,7 +81,9 @@ const updateTripSchema = z.object({
                     'Travel Types must be one of: adventure or leisure or business',
             })
             .optional(),
-        photo: z.string().url({ message: 'Invalid photo URL' }).optional(),
+        photo: z
+            .array(z.string().url({ message: 'Invalid photo URL' }))
+            .min(1, { message: 'At least one photo URL is required' }),
     }),
 });
 export const tripValidations = {
