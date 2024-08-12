@@ -3,6 +3,11 @@ import { travelType } from './trip.constant';
 
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
+const photoSchema = z.object({
+    id: z.number(),
+    image: z.string().url({ message: 'Invalid photo URL' }),
+});
+
 const createTripSchema = z.object({
     body: z.object({
         destination: z.string(),
@@ -37,9 +42,12 @@ const createTripSchema = z.object({
             invalid_type_error:
                 'Travel Types must be one of: adventure or leisure or business',
         }),
-        photo: z
-            .array(z.string().url({ message: 'Invalid photo URL' }))
-            .min(1, { message: 'At least one photo URL is required' }),
+        photos: z
+            .array(photoSchema, {
+                required_error: 'Photos is required',
+                invalid_type_error: 'Photos must be an array of object',
+            })
+            .min(1, { message: 'At least one photo object is required' }),
     }),
 });
 
@@ -81,11 +89,12 @@ const updateTripSchema = z.object({
                     'Travel Types must be one of: adventure or leisure or business',
             })
             .optional(),
-        photo: z
-            .array(z.string().url({ message: 'Invalid photo URL' }))
-            .min(1, { message: 'At least one photo URL is required' }),
+        photos: z
+            .array(photoSchema)
+            .min(1, { message: 'At least one photo object is required' }),
     }),
 });
+
 export const tripValidations = {
     createTripSchema,
     updateTripSchema,

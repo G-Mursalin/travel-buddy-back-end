@@ -1,5 +1,26 @@
 import { Schema, model } from 'mongoose';
-import { TTrip } from './trip.interface';
+import { TPhoto, TTrip } from './trip.interface';
+
+const photoSchema = new Schema<TPhoto>(
+    {
+        id: {
+            type: Number,
+            required: true,
+        },
+        image: {
+            type: String,
+            validate: {
+                validator: function (url: string) {
+                    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+                    return urlRegex.test(url);
+                },
+                message: 'A valid image URL is required',
+            },
+            required: [true, 'Image URL is required'],
+        },
+    },
+    { _id: false },
+);
 
 const tripSchema = new Schema<TTrip>(
     {
@@ -17,23 +38,15 @@ const tripSchema = new Schema<TTrip>(
             required: true,
             enum: ['adventure', 'leisure', 'business'],
         },
-        photo: {
-            type: [String],
+        photos: {
+            type: [photoSchema],
             validate: {
-                validator: function (array) {
-                    return (
-                        Array.isArray(array) &&
-                        array.length > 0 &&
-                        array.every((url: string) => {
-                            const urlRegex =
-                                /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-                            return urlRegex.test(url);
-                        })
-                    );
+                validator: function (array: TPhoto[]) {
+                    return Array.isArray(array) && array.length > 0;
                 },
-                message: 'At least one valid photo URL is required',
+                message: 'At least one photo object is required',
             },
-            required: [true, 'At least one photo URL is required'],
+            required: [true, 'Photos array is required'],
         },
         userId: {
             type: Schema.Types.ObjectId,
