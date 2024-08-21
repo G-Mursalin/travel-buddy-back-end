@@ -40,7 +40,7 @@ const createTripSchema = z.object({
         travelType: z.enum([...travelType] as [string, ...string[]], {
             required_error: 'Travel Types is required',
             invalid_type_error:
-                'Travel Types must be one of: adventure or leisure or business',
+                'Travel Types must be one of: Adventure or Relaxation or Cultural or Family or Business',
         }),
         photos: z
             .array(photoSchema, {

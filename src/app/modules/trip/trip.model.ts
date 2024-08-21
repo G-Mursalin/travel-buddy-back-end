@@ -36,7 +36,7 @@ const tripSchema = new Schema<TTrip>(
         travelType: {
             type: String,
             required: true,
-            enum: ['adventure', 'leisure', 'business'],
+            enum: ['Adventure', 'Relaxation', 'Cultural', 'Family', 'Business'],
         },
         photos: {
             type: [photoSchema],

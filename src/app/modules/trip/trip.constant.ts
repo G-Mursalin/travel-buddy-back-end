@@ -6,4 +6,10 @@ export const tripSearchAbleFields: string[] = [
     'travelType',
 ];
 
-export const travelType: string[] = ['adventure', 'leisure', 'business'];
+export const travelType: string[] = [
+    'Adventure',
+    'Relaxation',
+    'Cultural',
+    'Family',
+    'Business',
+];
