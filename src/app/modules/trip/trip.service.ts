@@ -16,6 +16,8 @@ const getAllTrips = async (query: Record<string, unknown>) => {
     const tripsQuery = new QueryBuilder(Trip.find(), query)
         .search(tripSearchAbleFields)
         .filter()
+        .minPrice()
+        .maxPrice()
         .sort()
         .paginate()
         .fields();
