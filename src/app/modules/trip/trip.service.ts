@@ -6,7 +6,7 @@ import { tripSearchAbleFields } from './trip.constant';
 
 // Create Trip
 const createTrip = async (user: JwtPayload, payload: TTrip) => {
-    const newTrip = await Trip.create({ ...payload, userId: user.id });
+    const newTrip = await Trip.create({ ...payload, user: user.id });
 
     return newTrip;
 };
@@ -30,7 +30,7 @@ const getAllTrips = async (query: Record<string, unknown>) => {
 
 // Get Trip By ID
 const getTrip = async (id: string) => {
-    const result = await Trip.findById(id);
+    const result = await Trip.findById(id).populate('user');
 
     return result;
 };

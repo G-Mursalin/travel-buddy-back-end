@@ -13,5 +13,5 @@ export interface TTrip {
     budget: number;
     travelType: 'adventure' | 'leisure' | 'business';
     photos: TPhoto[];
-    userId: Types.ObjectId;
+    user: Types.ObjectId;
 }

@@ -48,7 +48,7 @@ const tripSchema = new Schema<TTrip>(
             },
             required: [true, 'Photos array is required'],
         },
-        userId: {
+        user: {
             type: Schema.Types.ObjectId,
             ref: 'User',
         },
