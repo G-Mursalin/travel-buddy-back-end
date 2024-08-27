@@ -15,6 +15,11 @@ const createUserValidationSchema = z.object({
                 invalid_type_error: 'Password must be a string',
             })
             .min(1, 'Password is required'),
+        profileImage: z
+            .string()
+            .url({ message: 'Invalid photo URL' })
+            .optional(),
+        bio: z.string().optional(),
         email: z
             .string({
                 required_error: 'Email is required',
@@ -52,6 +57,11 @@ const updateProfileValidationSchema = z.object({
             })
             .min(1, 'User name is required')
             .optional(),
+        profileImage: z
+            .string()
+            .url({ message: 'Invalid photo URL' })
+            .optional(),
+        bio: z.string().optional(),
     }),
 });
 

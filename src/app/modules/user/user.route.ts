@@ -28,7 +28,7 @@ router
         userControllers.changeRole,
     )
     .patch(
-        '/:id',
+        '/update-me',
         auth(USER_ROLE.user, USER_ROLE.admin),
         validateRequest(userValidators.updateProfileValidationSchema),
         userControllers.updateMyProfile,

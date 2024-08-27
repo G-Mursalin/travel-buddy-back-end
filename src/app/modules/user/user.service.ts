@@ -16,6 +16,8 @@ const getMe = async (payload: JwtPayload) => {
             email: 1,
             status: 1,
             role: 1,
+            bio: 1,
+            profileImage: 1,
         });
     }
 
@@ -76,16 +78,24 @@ const changeRole = async (id: string, role: string) => {
 
 // Update My Profile
 const updateMyProfile = async (id: string, payload: Partial<TUser>) => {
-    const { userName } = payload;
+    const { password, email, role, status, ...safePayload } = payload;
 
     const result = await User.findByIdAndUpdate(
         id,
-        { userName },
+        { ...safePayload },
         {
             new: true,
             runValidators: true,
         },
-    ).select({ _id: 1, userName: 1, email: 1, status: 1, role: 1 });
+    ).select({
+        _id: 1,
+        userName: 1,
+        email: 1,
+        status: 1,
+        role: 1,
+        bio: 1,
+        profileImage: 1,
+    });
 
     return result;
 };

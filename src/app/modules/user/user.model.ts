@@ -15,6 +15,17 @@ const userSchema = new Schema<TUser, UserModel>(
             required: [true, 'Password is required'],
             select: 0,
         },
+        profileImage: {
+            type: String,
+            validate: {
+                validator: function (url: string) {
+                    const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+                    return urlRegex.test(url);
+                },
+                message: 'A valid image URL is required',
+            },
+        },
+        bio: { type: String },
         email: {
             type: String,
             required: [true, 'Email is required'],

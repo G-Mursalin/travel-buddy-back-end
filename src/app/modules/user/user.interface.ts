@@ -9,6 +9,8 @@ export interface TUser {
     userName: string;
     email: string;
     password: string;
+    profileImage: string;
+    bio: string;
     passwordChangedAt: Date;
     status: 'in-progress' | 'blocked';
     role: TUserRole;
