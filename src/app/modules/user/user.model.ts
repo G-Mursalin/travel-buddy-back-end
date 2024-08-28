@@ -66,7 +66,7 @@ userSchema.post('save', function (doc, next) {
 
 // Check if the user exist in database
 userSchema.statics.isUserExistsByEmail = async function (email: string) {
-    return await User.findOne({ email }).select('+password');
+    return await User.findOne({ email }).select('+password +passwordChangedAt');
 };
 
 //  Check Password is correct
