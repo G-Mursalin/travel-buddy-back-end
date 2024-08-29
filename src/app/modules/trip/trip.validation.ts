@@ -10,6 +10,7 @@ const photoSchema = z.object({
 
 const createTripSchema = z.object({
     body: z.object({
+        title: z.string(),
         destination: z.string(),
         description: z.string(),
         startDate: z
@@ -37,6 +38,18 @@ const createTripSchema = z.object({
                 { message: 'Invalid endDate value' },
             ),
         budget: z.number().positive(),
+        numberOfBookingSpot: z
+            .number()
+            .min(1, { message: 'Number of booking spot cannot be empty' })
+            .refine((value) => value >= 0, {
+                message: 'Number of booking spot must be a non-negative number',
+            }),
+        maxNumberOfPeople: z
+            .number()
+            .min(1, { message: 'Max number of people cannot be empty' })
+            .refine((value) => value >= 0, {
+                message: 'Max number of people must be a non-negative number',
+            }),
         travelType: z.enum([...travelType] as [string, ...string[]], {
             required_error: 'Travel Types is required',
             invalid_type_error:
@@ -53,6 +66,7 @@ const createTripSchema = z.object({
 
 const updateTripSchema = z.object({
     body: z.object({
+        title: z.string().optional(),
         destination: z.string().optional(),
         description: z.string().optional(),
         startDate: z
@@ -82,6 +96,20 @@ const updateTripSchema = z.object({
             )
             .optional(),
         budget: z.number().positive().optional(),
+        numberOfBookingSpot: z
+            .number()
+            .min(1, { message: 'Number of booking spot cannot be empty' })
+            .refine((value) => value >= 0, {
+                message: 'Number of booking spot must be a non-negative number',
+            })
+            .optional(),
+        maxNumberOfPeople: z
+            .number()
+            .min(1, { message: 'Max number of people cannot be empty' })
+            .refine((value) => value >= 0, {
+                message: 'Max number of people must be a non-negative number',
+            })
+            .optional(),
         travelType: z
             .enum([...travelType] as [string, ...string[]], {
                 required_error: 'Travel Types is required',

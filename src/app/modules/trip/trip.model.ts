@@ -24,6 +24,7 @@ const photoSchema = new Schema<TPhoto>(
 
 const tripSchema = new Schema<TTrip>(
     {
+        title: { type: String, required: true },
         destination: { type: String, required: true },
         description: { type: String, required: true },
         startDate: {
@@ -33,6 +34,8 @@ const tripSchema = new Schema<TTrip>(
         },
         endDate: { type: String, required: true, match: /^\d{4}-\d{2}-\d{2}$/ },
         budget: { type: Number, required: true, min: 0 },
+        maxNumberOfPeople: { type: Number, required: true, min: 0 },
+        numberOfBookingSpot: { type: Number, required: true, min: 0 },
         travelType: {
             type: String,
             required: true,
