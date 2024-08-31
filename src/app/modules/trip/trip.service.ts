@@ -13,7 +13,7 @@ const createTrip = async (user: JwtPayload, payload: TTrip) => {
 
 // Get All Trips
 const getAllTrips = async (query: Record<string, unknown>) => {
-    const tripsQuery = new QueryBuilder(Trip.find(), query)
+    const tripsQuery = new QueryBuilder(Trip.find().populate('user'), query)
         .search(tripSearchAbleFields)
         .filter()
         .minPrice()
