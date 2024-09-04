@@ -119,7 +119,8 @@ const updateTripSchema = z.object({
             .optional(),
         photos: z
             .array(photoSchema)
-            .min(1, { message: 'At least one photo object is required' }),
+            .min(1, { message: 'At least one photo object is required' })
+            .optional(),
     }),
 });
 

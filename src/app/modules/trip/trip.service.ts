@@ -37,7 +37,7 @@ const getTrip = async (id: string) => {
 
 // Get Login User Trips
 const getLoginUserTrips = async (user: JwtPayload) => {
-    const result = await Trip.find({ userId: user.id }).sort('-createdAt');
+    const result = await Trip.find({ user: user.id }).sort('-createdAt');
 
     return result;
 };
