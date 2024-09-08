@@ -42,11 +42,15 @@ const getTrip = catchAsync(async (req: Request, res: Response) => {
 
 // Get Login User Trips
 const getLoginUserTrips = catchAsync(async (req: Request, res: Response) => {
-    const result = await tripServices.getLoginUserTrips(req.user);
+    const { result, meta } = await tripServices.getLoginUserTrips(
+        req.user,
+        req.query,
+    );
 
     sendSuccessResponse(res, {
         statusCode: StatusCodes.OK,
         message: 'User posts retrieved successfully',
+        meta: meta,
         data: result,
     });
 });

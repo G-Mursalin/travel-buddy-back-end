@@ -36,10 +36,23 @@ const getTrip = async (id: string) => {
 };
 
 // Get Login User Trips
-const getLoginUserTrips = async (user: JwtPayload) => {
-    const result = await Trip.find({ user: user.id }).sort('-createdAt');
+const getLoginUserTrips = async (
+    user: JwtPayload,
+    query: Record<string, unknown>,
+) => {
+    const tripsQuery = new QueryBuilder(Trip.find({ user: user.id }), query)
+        .search(tripSearchAbleFields)
+        .filter()
+        .minPrice()
+        .maxPrice()
+        .sort()
+        .paginate()
+        .fields();
 
-    return result;
+    const result = await tripsQuery.modelQuery;
+    const meta = await tripsQuery.countTotal();
+
+    return { result, meta };
 };
 
 // Delete A Trip

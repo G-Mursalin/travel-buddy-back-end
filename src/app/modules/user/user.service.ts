@@ -28,6 +28,8 @@ const getMe = async (payload: JwtPayload) => {
             email: 1,
             status: 1,
             role: 1,
+            bio: 1,
+            profileImage: 1,
         });
     }
 
@@ -108,6 +110,8 @@ const getAllUsers = async () => {
         email: 1,
         status: 1,
         role: 1,
+        bio: 1,
+        profileImage: 1,
     });
 
     return result;
